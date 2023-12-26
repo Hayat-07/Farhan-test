@@ -1,0 +1,50 @@
+#projector{
+  height: 100vh;
+
+  display: grid;
+  grid-auto-rows: 1fr 7fr;
+  color: red;
+  background-color: azure;
+
+
+  & #actionBar{
+    display: flex;
+    background-color: coral;
+    justify-content:space-between ;
+    div{
+      h3{
+        margin-left: 10px;
+      }
+      display: flex;
+      margin: auto;
+    }
+    & #actionBtn{
+      h4{
+        margin-left:30px ;
+      }
+    }
+  }
+
+
+  & #mDiv{
+
+    & #mBox{
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #e5e5e5;
+      display: flex;
+      justify-content: start;
+
+      div{
+        display: flex;
+      }
+      h3{
+        margin-left: 20px;
+      }
+
+    }:hover{
+    background-color: aquamarine;
+    cursor: pointer;
+         }
+  }
+}

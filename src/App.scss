@@ -1,0 +1,15 @@
+#body{
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  background: gray;
+
+  & #firstColumn{
+    color: red;
+    background-color: azure;
+  }
+
+  & #secondColumn{
+
+  }
+}
