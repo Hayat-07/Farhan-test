@@ -5,55 +5,81 @@ const defaultMassage = [
         Id:0,
         checked:false,
         status:false,
-        body: " I got the massage1111"
+        body: " I got the massage00000000000000000000000000000000000000"
     },{
         Id:1,
         checked:false,
         status:false,
-        body: " I got the massage2222"
+        body: " I got the massage1111111111111111111111111111111111111"
     },{
         Id:2,
         checked:false,
         status:false,
-        body: " I got the massage33333"
+        body: " I got the massage22222222222222222222222222222222222222"
     },{
         Id:3,
         checked:false,
         status:false,
-        body: " I got the massage33333"
+        body: " I got the massage3333333333333333333333333333333333333333"
     },{
         Id:4,
         checked:false,
         status:false,
-        body: " I got the massage33333"
-    },{
-        Id:5,
-        checked:false,
-        status:false,
-        body: " I got the massage33333"
-    },{
-        Id:6,
-        checked:false,
-        status:false,
-        body: " I got the massage33333"
+        body: " I got the massage4444444444444444444444444444444444444444"
     }
 ];
 
 const MassageContext = ({children}) => {
-    useEffect(() => {
-        const stringOfArray=JSON.stringify(defaultMassage);
-       localStorage.setItem("arrayOfMassage",stringOfArray);
-    }, []);
-
 
     const [massages, setMassages]= useState(defaultMassage);
     const [archivedMassages, setArchivedMassages]= useState([]);
     const [modal, setModal]= useState(false);
-    const [count, setCount]= useState(0);
+    const [modalData, setModalData]= useState({});
+    const [count, setCount]= useState([]);
+    const [change , setChange]=useState(true);
+    const [ checkedAll,setCheckedAll]=useState(false);
+
+
+    let checkAll=(e)=>{
+        if( e.target.checked === true){
+            setCheckedAll(true)
+            setCount([...massages]);}
+        else{
+            setCheckedAll(false)
+
+            setChange(!change);
+
+        }
+
+    }
+
+    const sendToArchive=(e)=>{
+
+    };
+
+    useEffect(() => {
+        const stringOfArray=JSON.stringify(defaultMassage);
+       localStorage.setItem("arrayOfMassage",stringOfArray);
+    }, []);
+    useEffect(() => {
+        let newArr= [];
+        const arrayOfCheckedMassages= massages.map((x)=> {
+            (x.checked === true)&&(newArr.push(x));
+            return newArr;
+        });
+        // console.log(arrayOfCheckedMassages);
+
+            setCount(newArr);
+        // console.log(massages);
+
+    }, [massages,change]);
+ 
+
+   
 
     return (
 
-         <mContext.Provider value={ { count,setCount,archivedMassages, setArchivedMassages,massages,setMassages , modal,setModal } }>
+         <mContext.Provider value={ {sendToArchive,checkAll, checkedAll,setCheckedAll, setChange,count,setCount,archivedMassages, setArchivedMassages,massages,setMassages , modal,setModal,modalData, setModalData } }>
              {children}
          </mContext.Provider>
 

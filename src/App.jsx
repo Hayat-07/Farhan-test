@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import "./App.scss";
 import Projector from "./components/Projector.jsx";
 import {mContext} from "./contextStorage/MassageContext.jsx";
-import ModalPage from "./components/ModalPage.jsx";
+
 
 const App = () => {
     const {archivedMassages, setArchivedMassages, massages , modal,setMassages , setModal  }=useContext( mContext);
@@ -14,6 +14,7 @@ const App = () => {
                 <div><h3>Archive <span>{archivedMassages.length}</span></h3></div>
             </div>
             <div id="secondColumn">
+                
                 <Projector></Projector>
 
             </div>
