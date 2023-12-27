@@ -5,13 +5,13 @@ import {mContext} from "./contextStorage/MassageContext.jsx";
 
 
 const App = () => {
-    const {archivedMassages, setArchivedMassages, massages , modal,setMassages , setModal  }=useContext( mContext);
+    const {handleView,archivedMassages, setArchivedMassages, massages , modal,setMassages , setModal  }=useContext( mContext);
 
     return (
         <div id="body">
             <div id="firstColumn">
-                <div><h3>Inbox <span>{massages.length}</span></h3></div>
-                <div><h3>Archive <span>{archivedMassages.length}</span></h3></div>
+                <div ><h3 onClick={(e)=>{handleView(true)}}>Inbox <span>{massages.length}</span></h3></div>
+                <div><h3 onClick={(e)=>{handleView(false)}}>Archive <span>{archivedMassages.length}</span></h3></div>
             </div>
             <div id="secondColumn">
                 

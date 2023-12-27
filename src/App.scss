@@ -7,6 +7,11 @@
   & #firstColumn{
     color: red;
     background-color: azure;
+    div{
+      & :hover{
+        cursor: pointer;
+      }
+    }
   }
 
   & #secondColumn{

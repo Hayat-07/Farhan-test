@@ -6,7 +6,7 @@ import ModalPage from "./ModalPage.jsx";
 
 const Projector = () => {
 
-    const {sendToArchive,checkAll,checkedAll,setCheckedAll,setChange,change,count,setCount, archivedMassages, setArchivedMassages,massages , modal,setMassages , setModal,modalData, setModalData  }= useContext( mContext);
+    const {seenMassage,setSeenMassage,markAsRead,view, setView,sendToArchive,checkAll,checkedAll,setCheckedAll,setChange,change,count,setCount, archivedMassages, setArchivedMassages,massages , modal,setMassages , setModal,modalData, setModalData  }= useContext( mContext);
 
 
 
@@ -34,6 +34,10 @@ const Projector = () => {
     }
 
 
+
+
+
+
         console.log(count);
 
 
@@ -47,40 +51,53 @@ const Projector = () => {
                     <h3>Email selected </h3><span><h3>{count.length}</h3></span>
                 </div>
                 <div id="actionBtn">
-                    <h3>Mark as read</h3>
+                    <h3 onClick={(e)=>{markAsRead()}}>Mark as read <span><h3>{seenMassage}</h3></span></h3>
                     <h3 onClick={(e)=>{sendToArchive(e)}}>Archive</h3>
                 </div>
             </div>
 
-               <div id="mDiv">
-                   {
-                       massages.map((m,i)=>{
-                           const newM =m.body.substring(0,10);
-                           let bgColor = "white";
-                           const markAsRead= (m.status === true);
-                           markAsRead && (bgColor= "slateblue");
-                           return (
 
-                               <div id="mBox" key={i} style={{backgroundColor: bgColor}} >
-                                   <input type="checkbox" checked={checkedAll ?checkedAll:(m.checked)} onChange={(e)=> {handleCheck(e,m,i)}}/>
-                                   <h3>{m.Id}</h3>
-                                   <h6>{m.status}</h6>
-                                 <div onClick={(e)=> {handleMassage(e,m,i,modalData)}}>
-                                     <h3  >{newM}.....</h3>
-                                 </div>
-                               </div>
-                               
-                           )
-                       })
-                   }
-               </div>
+                <div id="mDiv">
+                    {
+                            (view?massages:archivedMassages).map((m,i)=>{
+                                const newM =m.body.substring(0,10);
+                                let bgColor = "white";
+                                const markAsRead= (m.status === true);
+                                markAsRead && (bgColor= "slateblue");
+                                return (
+
+                                    <div id="mBox" key={i} style={{backgroundColor: bgColor}} >
+                                        <input type="checkbox" checked={checkedAll ?checkedAll:(m.checked)} onChange={(e)=> {handleCheck(e,m,i)}}/>
+                                        
+                                        <div onClick={(e)=> {
+                                            
+                                            handleMassage(e,m,i,modalData);
+                                            setChange(!change);
+                                            }}>
+                                            <h3>{m.Id}</h3>
+                                            <h3>{newM}.....</h3>
+                                       
+                                        </div>
+                                    </div>
+
+                                )
+                            })
+                        
+                        }
+
+                </div>
+
+
+
                
-           {
-            modal && <ModalPage modalData={modalData}></ModalPage>
-           }
+                       {
+                        modal && <ModalPage modalData={modalData}></ModalPage>
+                       }
+             </div>
+             
+             )
 
-        </div>
-    );
-};
+
+            }                   
 
 export default Projector;

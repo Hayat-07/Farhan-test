@@ -31,24 +31,33 @@
 
 
   & #mDiv{
+    & :hover{
+      background-color: aquamarine;
+      cursor: pointer;
+           }
 
     & #mBox{
+      height: 40px;
       width: 100%;
-      padding: 10px;
+      padding-left: 10px;
       border: 1px solid #e5e5e5;
       display: flex;
       justify-content: start;
+      
 
       div{
         display: flex;
+        width: 100%;
+        &:hover{
+          background-color: aquamarine;
+          cursor: pointer;
+               }
+        
       }
       h3{
         margin-left: 20px;
       }
 
-    }:hover{
-    background-color: aquamarine;
-    cursor: pointer;
-         }
+    }
   }
 }
