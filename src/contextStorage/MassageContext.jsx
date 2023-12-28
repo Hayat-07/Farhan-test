@@ -1,5 +1,5 @@
 import React, {createContext, useEffect, useState} from 'react';
-export const mContext= createContext("")
+export const mContext= createContext("");
 import defaultMassage from "../assets/DataOfMassage.jsx";
 
 const MassageContext = ({children}) => {
@@ -20,7 +20,6 @@ const MassageContext = ({children}) => {
         if( e.target.checked === true){
             setCheckedAll(true);
             setCount([...massages]);
-
         }
         else{
             setCheckedAll(false)
@@ -28,12 +27,15 @@ const MassageContext = ({children}) => {
         }
     }
 
-    const sendToArchive=(e)=>{
+
+    const sendToArchive=()=>{
      const allCheckedMassage= massages.filter((x)=>x.checked=== true);
      setArchivedMassages([...archivedMassages,...allCheckedMassage]);
      for(let x of allCheckedMassage) {
+         console.log(massages.indexOf(x));
          massages.splice(massages.indexOf(x),1);
      }
+
     };
 
         const markAsRead=(e)=>{
@@ -54,16 +56,11 @@ setView(x);
 
     let m=0;
     useEffect(() => {
-
         for(let x of massages){
             if(x.status===true){m =m+1;}
         }
         setSeenMassage(m);
-        
     }, [massages]);
-
-    
-
 
 
     useEffect(() => {
@@ -78,14 +75,27 @@ setView(x);
             (x.checked === true)&&(newArr.push(x));
             return newArr;
         });
-        // console.log(arrayOfCheckedMassages);
-
             setCount(newArr);
-        // console.log(massages);
-
     }, [massages,change]);
 
+    useEffect(() => {
+        document.addEventListener("keydown",detectKeyDown,true);
+    }, []);
+    const  detectKeyDown=(e)=>{
 
+        if(e.key==="Escape"){
+            setModal(false);
+            console.log("Esc consoled");
+        }
+        else if(e.key==="r"){
+            markAsRead();
+            console.log("Marked successful");
+        }
+        else if(e.key==="a"){
+            sendToArchive(e);
+            console.log("Archived successful");
+        }
+    }
 
     return (
 

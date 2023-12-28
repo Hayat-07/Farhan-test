@@ -1,12 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react';
 import './projector.scss';
-import {mContext} from "../contextStorage/MassageContext.jsx";
+
 import ModalPage from "./ModalPage.jsx";
+import {mContext} from "../contextStorage/MassageContext.jsx";
 
 
 const Projector = () => {
 
-    const {seenMassage,setSeenMassage,markAsRead,view, setView,sendToArchive,checkAll,checkedAll,setCheckedAll,setChange,change,count,setCount, archivedMassages, setArchivedMassages,massages , modal,setMassages , setModal,modalData, setModalData  }= useContext( mContext);
+    const {seenMassage,markAsRead,view, sendToArchive,checkAll,checkedAll,setChange,change,count, archivedMassages,massages , modal,setMassages , setModal,modalData, setModalData  }= useContext( mContext);
 
 
 
