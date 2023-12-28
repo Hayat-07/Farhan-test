@@ -20,10 +20,22 @@ const MassageContext = ({children}) => {
         if( e.target.checked === true){
             setCheckedAll(true);
             setCount([...massages]);
+           let newMassage=massages.map((x)=>{
+            x.checked=true;
+            return x;
+           });
+           console.log(newMassage);
+           setMassages(newMassage);
         }
         else{
             setCheckedAll(false)
             setChange(!change);
+            let newMassage=massages.map((x)=>{
+                x.checked=false;
+                return x;
+               });
+               console.log(newMassage);
+               setMassages(newMassage);
         }
     }
 
@@ -92,7 +104,9 @@ setView(x);
             console.log("Marked successful");
         }
         else if(e.key==="a"){
-            sendToArchive(e);
+            sendToArchive();
+            setMassages([...massages]);
+
             console.log("Archived successful");
         }
     }

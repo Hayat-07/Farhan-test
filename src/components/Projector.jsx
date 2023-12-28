@@ -39,7 +39,7 @@ const Projector = () => {
 
 
 
-        console.log(count);
+        console.log(massages);
 
 
 

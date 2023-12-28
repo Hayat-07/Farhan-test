@@ -3,7 +3,7 @@ import './modalPage.scss';
 import {mContext} from "../contextStorage/MassageContext.jsx";
 
 
-const ModalPage = ({modalData}) => {
+const ModalPage = ({modalData}) =>{
     const {modal, setModal,seenMassage,markAsRead, sendToArchive,checkAll,count }= useContext( mContext);
 
     let m={...modalData};
@@ -24,8 +24,8 @@ const ModalPage = ({modalData}) => {
                         <h3 >X Close (ESC) </h3>
                     </div>
                     <div id="actionBtn">
-                        <h3 onKeyDown={(e)=>{ handleKeyDown(e)}} onClick={(e)=>{markAsRead()}}>Mark as read (R) <span><h3>{seenMassage}</h3></span></h3>
-                        <h3 onKeyDown={(e)=>{ handleKeyDown(e)}} onClick={(e)=>{sendToArchive(e)}}>Archive (A)</h3>
+                        <h3  onClick={(e)=>{markAsRead()}}>Mark as read (R) <span><h3>{seenMassage}</h3></span></h3>
+                        <h3  onClick={(e)=>{sendToArchive(e)}}>Archive (A)</h3>
                     </div>
                 </div>
 
