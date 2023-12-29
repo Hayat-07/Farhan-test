@@ -24,8 +24,10 @@ const ModalPage = ({modalData}) =>{
                         <h3 >X Close (ESC) </h3>
                     </div>
                     <div id="actionBtn">
+                        
                         <h3  onClick={(e)=>{markAsRead()}}>Mark as read (R) <span><h3>{seenMassage}</h3></span></h3>
                         <h3  onClick={(e)=>{sendToArchive(e)}}>Archive (A)</h3>
+                
                     </div>
                 </div>
 

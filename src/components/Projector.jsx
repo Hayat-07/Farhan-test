@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import './projector.scss';
 
 import ModalPage from "./ModalPage.jsx";
@@ -8,7 +8,7 @@ import {mContext} from "../contextStorage/MassageContext.jsx";
 const Projector = () => {
 
     const {seenMassage,markAsRead,view, sendToArchive,checkAll,checkedAll,setChange,change,count, archivedMassages,massages , modal,setMassages , setModal,modalData, setModalData  }= useContext( mContext);
-
+    const Mbox= useRef();
 
 
     const handleCheck =(e,m,i)=>{
@@ -64,10 +64,12 @@ const Projector = () => {
                                 const newM =m.body.substring(0,10);
                                 let bgColor = "white";
                                 const markAsRead= (m.status === true);
-                                markAsRead && (bgColor= "slateblue");
+                                markAsRead && {
+                                    
+                                };
                                 return (
 
-                                    <div id="mBox" key={i} style={{backgroundColor: bgColor}} >
+                                    <div id="mBox" key={i} ref={Mbox} style={{backgroundColor:bgColor}} >
                                         <input type="checkbox" checked={checkedAll ?checkedAll:(m.checked)} onChange={(e)=> {handleCheck(e,m,i)}}/>
                                         
                                         <div onClick={(e)=> {
