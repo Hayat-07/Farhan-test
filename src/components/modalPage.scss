@@ -1,13 +1,45 @@
 #modalPage{
   position: absolute;
   top:0;
- 
+ display: grid;
+ grid-template-columns: 2fr 5fr;
   color: rgb(196, 0, 0);
-  background-color: #FFF;
+ 
   border: 1px solid #E5E7EB;
   height: 100vh;
-  width: 80vw;
+  width: 100vw;
   animation:modal .4s ease-in-out;
+  #blackPage{
+    // background: opacity($color: #838383);
+    background-Color:rgb(0, 0, 0);
+  opacity: .65;
+    height:100vh;
+    width:100%;
+  }
+  #modalDiv{
+    background-color: #FFF;
+    #actionBar{
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      padding: 20px;
+      h3{
+       &:hover{
+        cursor: pointer;
+       }
+      }
+      #actionBtn{
+display: flex;
+align-items: center;
+justify-content: space-evenly;
+h3{
+  margin-left: 2vw;
+}
+
+
+      }
+    }
+  }
 }
 
 @keyframes modal {

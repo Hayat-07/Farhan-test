@@ -3,6 +3,7 @@ import './projector.scss';
 
 import ModalPage from "./ModalPage.jsx";
 import {mContext} from "../contextStorage/MassageContext.jsx";
+import { LuMailOpen } from "react-icons/lu";
 
 
 const Projector = () => {
@@ -52,8 +53,8 @@ const Projector = () => {
                     <h3>Email selected </h3><span><h3>{count.length}</h3></span>
                 </div>
                 <div id="actionBtn">
-                    <h3 onClick={(e)=>{markAsRead()}}>Mark as read <span><h3>{seenMassage}</h3></span></h3>
-                    <h3 onClick={(e)=>{sendToArchive(e)}}>Archive</h3>
+                    <h3 onClick={(e)=>{markAsRead()}}> <span><LuMailOpen /></span>Mark as read (r) <span>{seenMassage}</span></h3>
+                    <h3 onClick={(e)=>{sendToArchive(e)}}>Archive (a)</h3>
                 </div>
             </div>
 
@@ -61,16 +62,14 @@ const Projector = () => {
                 <div id="mDiv">
                     {
                             (view?massages:archivedMassages).map((m,i)=>{
-                                const newM =m.body.substring(0,10);
+                                const newM =m.body.substring(0,15);
                                 let bgColor = "white";
                                 const markAsRead= (m.status === true);
-                                markAsRead && {
-                                    
-                                };
+                                markAsRead && (bgColor= "#F3F6FB");
                                 return (
 
                                     <div id="mBox" key={i} ref={Mbox} style={{backgroundColor:bgColor}} >
-                                        <input type="checkbox" checked={checkedAll ?checkedAll:(m.checked)} onChange={(e)=> {handleCheck(e,m,i)}}/>
+                                        <input name="allSelectBox" type="checkbox" checked={checkedAll ?checkedAll:(m.checked)} onChange={(e)=> {handleCheck(e,m,i)}} />
                                         
                                         <div onClick={(e)=> {
                                             
@@ -93,9 +92,7 @@ const Projector = () => {
 
 
                
-                       {
-                        modal && <ModalPage modalData={modalData}></ModalPage>
-                       }
+
              </div>
              
              )

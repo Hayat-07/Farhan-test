@@ -1,20 +1,55 @@
 #body{
-  height: 100vh;
+  max-height: 100vh;
   display: grid;
   grid-template-columns: 1fr 4fr;
-  background:  #FFF;
+
 
   & #firstColumn{
-    color: red;
-    background-color:#F8FAFC;
-    div{
-      & :hover{
-        cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+
+    #firstDiv{
+
+      .mainActionBtn{
+
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 10px;
+        height: 54px ;
+        &:hover{
+          background-color: #D6E2FB;
+          cursor: pointer;
+        }
       }
+
+
+
     }
+    #secondDiv{
+      #LogOutBtn{
+        margin-bottom: 10vh;
+        justify-self: end;
+
+        border: none;
+        background-color: rgba(0, 0, 255, 0);
+      }& :hover{
+      cursor: pointer;
+             }
+    }
+
+
+
+
   }
 
   & #secondColumn{
 
   }
+}
+
+.activeDiv{
+background-color: rgb(79, 117, 105);
 }
