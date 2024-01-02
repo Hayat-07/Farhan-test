@@ -1,4 +1,4 @@
-import React, {createContext, useEffect, useState} from 'react';
+import {createContext, useEffect, useState} from 'react';
 export const mContext= createContext("");
 import defaultMassage from "../assets/DataOfMassage.jsx";
 
@@ -6,6 +6,11 @@ const MassageContext = ({children}) => {
 
     const [massages, setMassages]= useState(defaultMassage);
     const [archivedMassages, setArchivedMassages]= useState([]);
+    const [allSelectedMassages, setAllSelectedMassages]= useState([]);
+    const [ allSeenMassage,setAllSeenMassage]=useState([]);
+    
+
+
     const [view, setView]= useState(true);
     const [modal, setModal]= useState(false);
     const [modalData, setModalData]= useState({});
@@ -16,6 +21,23 @@ const MassageContext = ({children}) => {
 
 
 
+    useEffect(()=>{
+        let allCheckedMassage= massages.filter((x)=>x.checked === true);
+        setAllSelectedMassages(allCheckedMassage);
+        let allSelectedMassages= massages.filter((x)=>x.status === true);
+        setAllSeenMassage(allSelectedMassages);
+  
+    },[massages,change])
+
+
+
+
+ 
+
+
+
+
+//------------------check handler battun --------------
     let checkAll=(e)=>{
         if( e.target.checked === true){
             setCheckedAll(true);
@@ -39,18 +61,25 @@ const MassageContext = ({children}) => {
         }
     }
 
-
+//------------------msendToArchive handler --------------
     const sendToArchive=()=>{
-     const allCheckedMassage= massages.filter((x)=>x.checked=== true);
-     setArchivedMassages([...archivedMassages,...allCheckedMassage]);
-     for(let x of allCheckedMassage) {
-         console.log(massages.indexOf(x));
-         massages.splice(massages.indexOf(x),1);
+        
+     
+     for(let x of allSelectedMassages) {
+        console.log(massages.indexOf(x)); 
+        massages.splice((massages.indexOf(x)),1);
+         
      }
+        setCount([]);
+     setArchivedMassages([...archivedMassages,...allSelectedMassages]);
 
     };
 
-        const markAsRead=(e)=>{
+
+
+    
+//------------------mark As Read handler on projector page--------------
+        const markAsRead=()=>{
             const allCheckedMassage= massages.map((x)=>{
                 (x.checked=== true) && (x.status=true );
                 return x;
@@ -58,6 +87,10 @@ const MassageContext = ({children}) => {
             setMassages(allCheckedMassage);
             console.log(allCheckedMassage);
         };
+        
+
+
+
 
     const handleView=(x)=>{
 setView(x);
@@ -66,50 +99,19 @@ setView(x);
 
 
 
-    let m=0;
-    useEffect(() => {
-        for(let x of massages){
-            if(x.status===true){m =m+1;}
-        }
-        setSeenMassage(m);
-    }, [massages]);
 
 
-    useEffect(() => {
-        const stringOfArray=JSON.stringify(defaultMassage);
-       localStorage.setItem("arrayOfMassage",stringOfArray);
-    }, []);
 
+//------------------automatic update Email selected count on projector page--------------
+useEffect(() => {
+    let newArr= [];
+    massages.map((x)=> {
+        (x.checked === true)&&(newArr.push(x));
+        return newArr;
+    });
+        setCount(newArr);
+}, [massages,change]);
 
-    useEffect(() => {
-        let newArr= [];
-        const arrayOfCheckedMassages= massages.map((x)=> {
-            (x.checked === true)&&(newArr.push(x));
-            return newArr;
-        });
-            setCount(newArr);
-    }, [massages,change]);
-
-    useEffect(() => {
-        document.addEventListener("keydown",detectKeyDown,true);
-    }, []);
-    const  detectKeyDown=(e)=>{
-
-        if(e.key==="Escape"){
-            setModal(false);
-            console.log("Esc consoled");
-        }
-        else if(e.key==="r"){
-            markAsRead();
-            console.log("Marked successful");
-        }
-        else if(e.key==="a"){
-            sendToArchive();
-            setMassages([...massages]);
-
-            console.log("Archived successful");
-        }
-    }
 
     return (
 

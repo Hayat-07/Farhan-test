@@ -1,19 +1,17 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import  {useContext,useEffect, useRef} from 'react';
 import './projector.scss';
-
-import ModalPage from "./ModalPage.jsx";
 import {mContext} from "../contextStorage/MassageContext.jsx";
 import { LuMailOpen } from "react-icons/lu";
 
 
 const Projector = () => {
 
-    const {seenMassage,markAsRead,view, sendToArchive,checkAll,checkedAll,setChange,change,count, archivedMassages,massages , modal,setMassages , setModal,modalData, setModalData  }= useContext( mContext);
+    const {markAsRead,view, sendToArchive,checkAll,checkedAll,setChange,change,count, archivedMassages,massages , modal,setMassages , setModal,modalData, setModalData  }= useContext( mContext);
     const Mbox= useRef();
 
 
     const handleCheck =(e,m,i)=>{
-       let newMassages =[...massages]
+       let newMassages =[...massages];
         let ob = newMassages[i];
         ob.checked= !(ob.checked);
         newMassages[i]= ob
@@ -24,7 +22,7 @@ const Projector = () => {
 
 
     
-    const handleMassage =(e,m,i,modalData)=> {
+    const handleMassage =(e,m,i,)=> {
       let ob = massages[i];
         ob.status = true;
         let copyArrayOfObject = [...massages];
@@ -37,10 +35,29 @@ const Projector = () => {
 
 
 
+//------------------all keyboards button events handler are here--------------
+let  detectKeyDown=(e)=>{
+
+    if(e.key==="Escape"){
+        setModal(false);
+        console.log("Esc consoled");
+    }
+    else if(e.key==="r"){
+        markAsRead();
+        console.log("Marked successful");
+    }
+    else if(e.key==="a"){
+      
+        sendToArchive();
+        console.log("Archived successful");
+    }
+}
+    useEffect(() => {
+        document.addEventListener("keydown",detectKeyDown);
+    });
 
 
-
-        console.log(massages);
+        // console.log(massages);
 
 
 
@@ -53,7 +70,7 @@ const Projector = () => {
                     <h3>Email selected </h3><span><h3>{count.length}</h3></span>
                 </div>
                 <div id="actionBtn">
-                    <h3 onClick={(e)=>{markAsRead()}}> <span><LuMailOpen /></span>Mark as read (r) <span>{seenMassage}</span></h3>
+                    <h3 onClick={()=>{markAsRead()}}> <span style={{margin:"10px"}}><LuMailOpen/></span>Mark as read (r) </h3>
                     <h3 onClick={(e)=>{sendToArchive(e)}}>Archive (a)</h3>
                 </div>
             </div>
@@ -64,6 +81,7 @@ const Projector = () => {
                             (view?massages:archivedMassages).map((m,i)=>{
                                 const newM =m.body.substring(0,15);
                                 let bgColor = "white";
+                                
                                 const markAsRead= (m.status === true);
                                 markAsRead && (bgColor= "#F3F6FB");
                                 return (
@@ -72,9 +90,10 @@ const Projector = () => {
                                         <input name="allSelectBox" type="checkbox" checked={checkedAll ?checkedAll:(m.checked)} onChange={(e)=> {handleCheck(e,m,i)}} />
                                         
                                         <div onClick={(e)=> {
-                                            
+                                            setModalData(m);
                                             handleMassage(e,m,i,modalData);
                                             setChange(!change);
+                                            
                                             }}>
                                             <h3>{m.Id}</h3>
                                             <h3>{newM}.....</h3>
