@@ -21,7 +21,7 @@ const ModalPage = () =>{
                     </div>
                     <div id="actionBtn">
 
-                        <h3 onClick={() => { markAsRead() }}><span><LuMailOpen /></span><span>Mark as read (R)</span> </h3>
+                        <h3 onClick={markAsRead}><span><LuMailOpen /></span><span>Mark as read (R)</span> </h3>
                         <h3 onClick={(e) => { sendToArchive(e)}}>Archive (A)</h3>
 
                     </div>

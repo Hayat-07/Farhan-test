@@ -3,13 +3,7 @@ import React from 'react';
 
 
   const defaultMassage = [
-        {
-            Id:0,
-            checked:false,
-            status:false,
-            body: " I got the massage00000000000000000000000000000000000000",
-            massage:"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque maiores inventore, est minima voluptate aut asperiores alias quasi unde in provident consectetur doloribus veritatis repudiandae ullam consequuntur ducimus officia adipisci"
-        },{
+       {
             Id:1,
             checked:false,
             status:false,

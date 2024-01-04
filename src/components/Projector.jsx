@@ -6,58 +6,82 @@ import { LuMailOpen } from "react-icons/lu";
 
 const Projector = () => {
 
-    const {markAsRead,view, sendToArchive,checkAll,checkedAll,setChange,change,count, archivedMassages,massages , modal,setMassages , setModal,modalData, setModalData  }= useContext( mContext);
+    const {allSelectedMassages, setAllSelectedMassages,setArchivedMassages,setCount,markAsRead,view,checkAll,checkedAll,setChange,change,count, archivedMassages,massages , modal,setMassages , setModal,modalData, setModalData  }= useContext( mContext);
     const Mbox= useRef();
 
+    const handleCheckBox =(e,m,i)=>{
 
-    const handleCheck =(e,m,i)=>{
+        let ind =massages.indexOf(m);
        let newMassages =[...massages];
         let ob = newMassages[i];
         ob.checked= !(ob.checked);
-        newMassages[i]= ob
+        console.log(ob);
+        newMassages[ind]= ob;
         setMassages(newMassages);
-
+    let x=[...allSelectedMassages];
+    x.push(ob);
+       setAllSelectedMassages(x);
     }
 
 
 
-    
-    const handleMassage =(e,m,i,)=> {
+    //--------------------make status true of massage-------------------------------
+    const handleSeen =(e,m,i,)=> {
       let ob = massages[i];
         ob.status = true;
         let copyArrayOfObject = [...massages];
         copyArrayOfObject[i]=ob;
         setMassages(copyArrayOfObject);
-        setModal(!modal);
         setModalData(m);
+        setModal(!modal);
+
 
     }
 
+    let newArchivedMassages= [];
+    //------------------sendToArchive handler -----------------------------------------------------------
+    const sendToArchive=()=>{
 
+
+      const checkedMassages=massages.filter((x)=>(x.checked === true));
+      console.log(checkedMassages);
+       if(checkedMassages.length>=1){
+           setArchivedMassages([...archivedMassages,...checkedMassages]);
+       }else {
+           alert("No massage is selected!!!")
+       }
+        let m = [...massages];
+        for(let x of checkedMassages) {
+            m.splice((m.indexOf(x)),1);
+        }
+        setMassages(m);
+        setCount([]);
+
+    };
 
 //------------------all keyboards button events handler are here--------------
-let  detectKeyDown=(e)=>{
+useEffect(() => {
+     document.addEventListener('keydown', detectKeyDown, true)
+},[]);
+
+
+const  detectKeyDown=(e)=>{
 
     if(e.key==="Escape"){
         setModal(false);
-        console.log("Esc consoled");
+        console.log(e.key,"Esc consoled");
     }
     else if(e.key==="r"){
         markAsRead();
-        console.log("Marked successful");
+        console.log(e.key,"Marked successful");
     }
     else if(e.key==="a"){
-      
+
         sendToArchive();
-        console.log("Archived successful");
+
     }
 }
-    useEffect(() => {
-        document.addEventListener("keydown",detectKeyDown);
-    });
 
-
-        // console.log(massages);
 
 
 
@@ -71,7 +95,7 @@ let  detectKeyDown=(e)=>{
                 </div>
                 <div id="actionBtn">
                     <h3 onClick={()=>{markAsRead()}}> <span style={{margin:"10px"}}><LuMailOpen/></span>Mark as read (r) </h3>
-                    <h3 onClick={(e)=>{sendToArchive(e)}}>Archive (a)</h3>
+                    <h3 onClick={()=>{sendToArchive()}}>Archive (a)</h3>
                 </div>
             </div>
 
@@ -87,11 +111,11 @@ let  detectKeyDown=(e)=>{
                                 return (
 
                                     <div id="mBox" key={i} ref={Mbox} style={{backgroundColor:bgColor}} >
-                                        <input name="allSelectBox" type="checkbox" checked={checkedAll ?checkedAll:(m.checked)} onChange={(e)=> {handleCheck(e,m,i)}} />
+                                        <input name="allSelectBox" type="checkbox" checked={checkedAll ?checkedAll:(m.checked)} onChange={(e)=> {handleCheckBox(e,m,i)}} />
                                         
                                         <div onClick={(e)=> {
                                             setModalData(m);
-                                            handleMassage(e,m,i,modalData);
+                                            handleSeen(e,m,i,modalData);
                                             setChange(!change);
                                             
                                             }}>

@@ -5,6 +5,7 @@ import defaultMassage from "../assets/DataOfMassage.jsx";
 const MassageContext = ({children}) => {
 
     const [massages, setMassages]= useState(defaultMassage);
+    console.log(massages);
     const [archivedMassages, setArchivedMassages]= useState([]);
     const [allSelectedMassages, setAllSelectedMassages]= useState([]);
     const [ allSeenMassage,setAllSeenMassage]=useState([]);
@@ -12,32 +13,22 @@ const MassageContext = ({children}) => {
 
 
     const [view, setView]= useState(true);
+    const [change , setChange]=useState(true);
     const [modal, setModal]= useState(false);
+    const [ checkedAll,setCheckedAll]=useState(false);
+
+
+
     const [modalData, setModalData]= useState({});
     const [count, setCount]= useState([]);
-    const [change , setChange]=useState(true);
-    const [ checkedAll,setCheckedAll]=useState(false);
     const [ seenMassage,setSeenMassage]=useState(0);
 
 
 
-    useEffect(()=>{
-        let allCheckedMassage= massages.filter((x)=>x.checked === true);
-        setAllSelectedMassages(allCheckedMassage);
-        let allSelectedMassages= massages.filter((x)=>x.status === true);
-        setAllSeenMassage(allSelectedMassages);
-  
-    },[massages,change])
 
 
 
-
- 
-
-
-
-
-//------------------check handler battun --------------
+//------------------check handler button --------------
     let checkAll=(e)=>{
         if( e.target.checked === true){
             setCheckedAll(true);
@@ -46,35 +37,22 @@ const MassageContext = ({children}) => {
             x.checked=true;
             return x;
            });
-           console.log(newMassage);
+           console.log("newMassage",newMassage);
            setMassages(newMassage);
         }
         else{
             setCheckedAll(false)
-            setChange(!change);
+
             let newMassage=massages.map((x)=>{
                 x.checked=false;
                 return x;
                });
                console.log(newMassage);
                setMassages(newMassage);
+            setChange(!change);
         }
+
     }
-
-//------------------msendToArchive handler --------------
-    const sendToArchive=()=>{
-        
-     
-     for(let x of allSelectedMassages) {
-        console.log(massages.indexOf(x)); 
-        massages.splice((massages.indexOf(x)),1);
-         
-     }
-        setCount([]);
-     setArchivedMassages([...archivedMassages,...allSelectedMassages]);
-
-    };
-
 
 
     
@@ -87,18 +65,10 @@ const MassageContext = ({children}) => {
             setMassages(allCheckedMassage);
             console.log(allCheckedMassage);
         };
-        
-
-
-
 
     const handleView=(x)=>{
 setView(x);
     };
-
-
-
-
 
 
 
@@ -115,7 +85,7 @@ useEffect(() => {
 
     return (
 
-         <mContext.Provider value={ {seenMassage,setSeenMassage,markAsRead,view, setView,handleView,sendToArchive,checkAll, checkedAll,setCheckedAll, setChange,count,setCount,archivedMassages, setArchivedMassages,massages,setMassages , modal,setModal,modalData, setModalData } }>
+         <mContext.Provider value={ {allSelectedMassages, setAllSelectedMassages,seenMassage,setSeenMassage,markAsRead,view, setView,handleView,checkAll, checkedAll,setCheckedAll, setChange,count,setCount,archivedMassages, setArchivedMassages,massages,setMassages , modal,setModal,modalData, setModalData } }>
              {children}
          </mContext.Provider>
 

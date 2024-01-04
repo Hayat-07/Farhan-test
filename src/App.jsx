@@ -46,7 +46,7 @@ const App = () => {
                             </div>
 
                             
-                            <div onClick={() => {setView(false) }} className='mainActionBtn'style={{backgroundColor: bgColorMainBtn2, display: "flex"}} >
+                            <div onClick={() => {setView(false) }} className='mainActionBtn' style={{backgroundColor: bgColorMainBtn2, display: "flex"}} >
                                 <h3><span style={{margin:"10px"}}><BsArchive/></span>Archive</h3><h3>{archivedMassages.length}</h3>
                             </div>
 
